@@ -3,7 +3,8 @@ import { WeatherActionTypes } from "./types"
 
 
 const weatherActionCreators = {
-    setCitiesWeather: (citiesWeather: CityWeather) => ({ type: WeatherActionTypes.SET_SITIES_WEATHER, payload: citiesWeather })
+    setCitiesWeather: (citiesWeather: CityWeather[]) => ({ type: WeatherActionTypes.SET_CITIES_WEATHER, payload: citiesWeather }),
+    addCitiesWeather: (citiesWeather: CityWeather) => ({ type: WeatherActionTypes.ADD_CITY_WEATHER, payload: citiesWeather })
 }
 
 export default weatherActionCreators

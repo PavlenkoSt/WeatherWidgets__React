@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import s from './AddCity.module.scss'
 import { toast } from 'react-toastify'
 import weatherAPI from '../API/weatherAPI'
+import useAction from '../hooks/useAction'
 
 const AddCity = () => {
 
     const [ inputCity, setInputCity ] = useState('')
+
+    const { addCitiesWeather } = useAction()
 
     const toastOptions = {
         hideProgressBar: true,
@@ -16,9 +19,13 @@ const AddCity = () => {
     const addCityHandler = async () => {
         if(inputCity){
             const data = await weatherAPI.getWeatherByCity(inputCity)
-            
-            if(data.cod === "200"){
-                console.log(data)
+
+            if(data.cod === '200'){
+                addCitiesWeather({
+                        city: data.city.name,
+                        country: data.city.country,
+                        weather: data.list
+                    })
                 return
             }
 
