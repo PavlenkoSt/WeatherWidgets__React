@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import s from './AddCity.module.scss'
 import { toast } from 'react-toastify'
+import weatherAPI from '../API/weatherAPI'
 
 const AddCity = () => {
 
@@ -12,9 +13,16 @@ const AddCity = () => {
         position: 'top-center'
     }
 
-    const addCityHandler = () => {
+    const addCityHandler = async () => {
         if(inputCity){
-            console.log(inputCity)
+            const data = await weatherAPI.getWeatherByCity(inputCity)
+            
+            if(data.cod === "200"){
+                console.log(data)
+                return
+            }
+
+            toast('City not found', toastOptions as {})
         }else{
             toast('The field cannot be empty', toastOptions as {})
         }
