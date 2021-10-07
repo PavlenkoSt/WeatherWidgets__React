@@ -42,3 +42,60 @@
     margin-bottom: 25px;
     padding: 0 15px;
 }
+
+.bottom{
+    padding: 0 15px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.temp{
+    display: flex;  
+}
+
+.tempVal{
+    font-size: 44px;
+    color: #333;
+    font-weight: 700;
+}
+
+.tempTumbler{
+    align-self: start;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.tempItem{
+    cursor: pointer;
+    font-size: 22px;
+    color: #8D8D8D;
+    font-weight: 600;
+
+    &.active{
+        color: #333;
+    }
+}
+
+.feelsLike{
+    color: #C5C5C5;
+    font-size: 13px;
+}
+
+.option{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    margin-bottom: 5px;
+    gap: 5px;
+    color: #333;
+
+    & span{
+        color: #FFA25B;
+    }
+
+    &:last-child{
+        margin-bottom: 0;
+    }
+}
