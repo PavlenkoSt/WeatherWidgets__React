@@ -8,7 +8,7 @@ const AddCity = () => {
 
     const [ inputCity, setInputCity ] = useState('')
 
-    const { addCitiesWeather } = useAction()
+    const { addCityWeather } = useAction()
 
     const toastOptions = {
         hideProgressBar: true,
@@ -21,7 +21,7 @@ const AddCity = () => {
             const data = await weatherAPI.getWeatherByCity(inputCity)
 
             if(data.cod === '200'){
-                addCitiesWeather({
+                addCityWeather({
                         city: data.city.name,
                         country: data.city.country,
                         weather: data.list,

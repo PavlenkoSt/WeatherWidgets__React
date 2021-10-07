@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import useAction from '../hooks/useAction'
 import { CityWeather } from '../models/weather'
 import Chart from './Chart'
 import s from './Widget.module.scss'
@@ -12,11 +13,13 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
     const currentWeather = widgetInfo.weather[0]
     const weatherStatus = widgetInfo.weather[0].weather[0]
     console.log(widgetInfo);
-    
+
+    const { removeCityWeather } = useAction()
 
     return (
         <div className={ s.container }>
            <div className={ s.widget }>
+                <div className={ s.close } onClick={ () => removeCityWeather(widgetInfo.id) } >&#10006;</div>
                 <div className={ s.top }>
                     <div className={ s.sity }>{ `${widgetInfo.city}, ${widgetInfo.country}` }</div>
                     <div className={ s.status }>

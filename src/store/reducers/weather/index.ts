@@ -10,6 +10,8 @@ const weatherReducer = (state = initialState, action: WeatherActionCreatorsType)
             return { ...state, citiesWeather: action.payload }
         case WeatherActionTypes.ADD_CITY_WEATHER: 
             return { ...state, citiesWeather: [ ...state.citiesWeather, action.payload ] }
+        case WeatherActionTypes.REMOVE_CITY_WEATHER: 
+            return { ...state, citiesWeather: state.citiesWeather.filter(cityW => cityW.id !== action.payload) }
         default:    
             return state
     }
