@@ -25,7 +25,8 @@ const AddCity = () => {
                         city: data.city.name,
                         country: data.city.country,
                         weather: data.list,
-                        id: Date.now()
+                        id: Date.now(),
+                        tempScale: 'C'
                     })
                 setInputCity('')
                 return

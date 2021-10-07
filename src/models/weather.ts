@@ -2,5 +2,6 @@ export type CityWeather = {
     city: string
     country: string
     weather: any[],
-    id: number
+    id: number,
+    tempScale: 'F' | 'C'
 }

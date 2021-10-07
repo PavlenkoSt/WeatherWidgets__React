@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import useAction from '../hooks/useAction'
 import { CityWeather } from '../models/weather'
+import celsiusToFarengeit from '../utilts/celsiusToFarengeit'
 import Chart from './Chart'
 import s from './Widget.module.scss'
 
@@ -14,7 +15,10 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
     const weatherStatus = widgetInfo.weather[0].weather[0]
     console.log(widgetInfo);
 
-    const { removeCityWeather } = useAction()
+    const { removeCityWeather, changeScaleWeather } = useAction()
+
+    const isCelsiusScale = widgetInfo.tempScale === 'C'
+    const temp = isCelsiusScale ? Math.round(currentWeather.main.temp) : Math.round(celsiusToFarengeit(currentWeather.main.temp))
 
     return (
         <div className={ s.container }>
@@ -36,9 +40,17 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
                 <div className={ s.bottom }>
                     <div>
                         <div className={ s.temp }>
-                            <div className={ s.tempVal }>{ Math.round(currentWeather.main.temp) }</div>
+                            <div className={ s.tempVal }>{ temp }</div>
                             <div className={ s.tempTumbler }>
-                                <div className={ s.tempItem }>&deg;C</div> | <div className={ s.tempItem }>&deg;F</div>
+                                <div 
+                                    className={ `${s.tempItem} ${ isCelsiusScale ? s.active : '' }` }
+                                    onClick={ () => !isCelsiusScale && changeScaleWeather(widgetInfo.id, 'C') }
+                                >&deg;C</div> 
+                                | 
+                                <div
+                                    className={ `${s.tempItem} ${ !isCelsiusScale ? s.active : '' }` }
+                                    onClick={ () => isCelsiusScale && changeScaleWeather(widgetInfo.id, 'F') }
+                                >&deg;F</div>
                             </div>
                         </div>
                         <div className={ s.feelsLike }>Feels like: { Math.round(currentWeather.main.feels_like) } &deg;C</div>

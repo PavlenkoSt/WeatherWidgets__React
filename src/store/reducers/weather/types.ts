@@ -7,7 +7,8 @@ export type WeatherStateType = {
 export enum WeatherActionTypes {
     SET_CITIES_WEATHER = 'SET_CITIES_WEATHER',
     ADD_CITY_WEATHER = 'ADD_CITY_WEATHER',
-    REMOVE_CITY_WEATHER = 'REMOVE_CITY_WEATHER'
+    REMOVE_CITY_WEATHER = 'REMOVE_CITY_WEATHER',
+    CHANGE_SCALE_WEATHER = 'CHANGE_SCALE_WEATHER'
 }
 
 type SetWeatherListType = {
@@ -25,7 +26,13 @@ type RemoveWeatherListType = {
     payload: number
 }
 
+type ChangeScaleWeather = {
+    type: WeatherActionTypes.CHANGE_SCALE_WEATHER
+    payload: { id: number, scale: 'F' | 'C' }
+}
+
 export type WeatherActionCreatorsType = 
     SetWeatherListType | 
     AddWeatherListType |
-    RemoveWeatherListType
+    RemoveWeatherListType |
+    ChangeScaleWeather
