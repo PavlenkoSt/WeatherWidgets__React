@@ -1,10 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&display=swap');
+
 *, *::after, *::before{
     box-sizing: border-box;
     margin: 0;
 }
 
 .app{
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    font-family: 'Jost', sans-serif;
+}
+
+tspan{
+    font-size: 12px;
 }

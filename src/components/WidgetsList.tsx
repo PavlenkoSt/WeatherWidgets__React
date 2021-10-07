@@ -8,7 +8,8 @@ const WidgetsList = () => {
     const { citiesWeather } = useTypedSelector(state => state.weatherReducer)
 
     const renderWidgets = citiesWeather.map((cityW, i) => <Widget
-        key={i}
+        key={ cityW.id }
+        widgetInfo={ cityW }
     />)
 
     if(!renderWidgets.length){

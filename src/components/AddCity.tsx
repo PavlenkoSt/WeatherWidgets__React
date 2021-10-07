@@ -13,7 +13,7 @@ const AddCity = () => {
     const toastOptions = {
         hideProgressBar: true,
         autoClose: 2000,
-        position: 'top-center'
+        position: 'bottom-center'
     }
 
     const addCityHandler = async () => {
@@ -24,8 +24,10 @@ const AddCity = () => {
                 addCitiesWeather({
                         city: data.city.name,
                         country: data.city.country,
-                        weather: data.list
+                        weather: data.list,
+                        id: Date.now()
                     })
+                setInputCity('')
                 return
             }
 

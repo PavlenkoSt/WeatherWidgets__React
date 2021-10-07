@@ -1,5 +1,6 @@
 export type CityWeather = {
     city: string
     country: string
-    weather: Object[]
+    weather: any[],
+    id: number
 }
