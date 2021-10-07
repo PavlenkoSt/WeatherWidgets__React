@@ -1,7 +1,18 @@
 import { WeatherActionCreatorsType, WeatherActionTypes, WeatherStateType } from "./types"
 
 const initialState: WeatherStateType = {
-    citiesWeather: []
+    citiesWeather: [
+        {
+            city: 'ds',
+            country: 'sd',
+            weather: []
+        },
+        {
+            city: 'ds2',
+            country: 'sd2',
+            weather: []
+        }
+    ]
 }
 
 const weatherReducer = (state = initialState, action: WeatherActionCreatorsType) => {

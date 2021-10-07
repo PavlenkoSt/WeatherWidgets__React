@@ -5,7 +5,7 @@ import WidgetsList from './components/WidgetsList'
 
 const App = () => {
     return (
-        <div>
+        <div className='app'>
             <AddCity/>
             <WidgetsList/>
         </div>
