@@ -9,6 +9,10 @@
     box-shadow: 0px 3px 6px #00000029;
     padding: 10px 0;
     position: relative;
+
+    &.cold{
+        background-color: #F1F2FF;
+    }
 }
 
 .close{
@@ -109,6 +113,10 @@
 
     & span{
         color: #FFA25B;
+
+        &.cold{
+            color: #459DE9;
+        }
     }
 
     &:last-child{
