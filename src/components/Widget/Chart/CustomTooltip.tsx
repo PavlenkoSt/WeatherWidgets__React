@@ -6,9 +6,10 @@ type TooltipPropsType = {
     active?: boolean
     label?: string
     isColdTheme: boolean
+    tempScale: 'F' | 'C'
 }
 
-const CustomTooltip: FC<TooltipPropsType> = ({ payload, active, label, isColdTheme }) => {
+const CustomTooltip: FC<TooltipPropsType> = ({ payload, active, label, isColdTheme, tempScale }) => {
 
     if(!active){
         return null
@@ -22,7 +23,7 @@ const CustomTooltip: FC<TooltipPropsType> = ({ payload, active, label, isColdThe
             <div>t: 
                 <span 
                     className={ isColdTheme ? `${s.t} ${s.cold}` : s.t } 
-                > { temp } &deg;C </span>
+                > { temp } &deg;{ tempScale } </span>
             </div>
         </div>
     )

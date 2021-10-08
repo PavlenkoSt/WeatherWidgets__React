@@ -3,17 +3,19 @@ import React, { FC } from 'react'
 import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import CustomTooltip from './CustomTooltip'
 import s from './Chart.module.scss'
+import celsiusToFarengeit from '../../../utilts/celsiusToFarengeit'
 
 type ChartPropsType = {
   isColdTheme: boolean,
-  allDaysWeatherData: any[]
+  allDaysWeatherData: any[],
+  tempScale: 'F' | 'C'
 }
 
-const Chart: FC<ChartPropsType> = React.memo(({ isColdTheme, allDaysWeatherData }) => {
+const Chart: FC<ChartPropsType> = React.memo(({ isColdTheme, allDaysWeatherData, tempScale }) => {
 
     const weatherData = allDaysWeatherData.map(oneDayWeather => ({
         date: dateFormat(oneDayWeather.dt_txt, 'dd.mm hh:MM'),
-        Temperature: Math.floor(oneDayWeather.main.temp)
+        Temperature: tempScale === 'C' ? Math.floor(oneDayWeather.main.temp) : Math.floor(celsiusToFarengeit(oneDayWeather.main.temp))
     }))
 
     const fill = isColdTheme ? '#5B8CFF' : '#FFA25B'
@@ -31,7 +33,12 @@ const Chart: FC<ChartPropsType> = React.memo(({ isColdTheme, allDaysWeatherData 
                 }}
             >
                 <XAxis dataKey="date" />
-                <Tooltip content={ <CustomTooltip isColdTheme={ isColdTheme } /> } />
+                <Tooltip content={ 
+                    <CustomTooltip 
+                        isColdTheme={ isColdTheme } 
+                        tempScale={ tempScale }
+                    /> 
+                } />
                 <Area type="monotone" dataKey="Temperature" stroke={ fill } fill={ fill } />
             </AreaChart>
             </ResponsiveContainer>

@@ -31,6 +31,7 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
                 <Chart 
                     isColdTheme={ isColdTheme }
                     allDaysWeatherData={ widgetInfo.weather }
+                    tempScale={ widgetInfo.tempScale }
                 />
                 <BottomWidget
                     id={ widgetInfo.id }
