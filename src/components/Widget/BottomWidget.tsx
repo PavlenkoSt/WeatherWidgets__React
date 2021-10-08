@@ -21,6 +21,7 @@ const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme,
 
     const isCelsiusScale = tempScale === 'C'
     const tempCalc = isCelsiusScale ? Math.round(temp) : Math.round(celsiusToFarengeit(temp))
+    const feelsLikeCalc = isCelsiusScale ? Math.round(feelsLike) : Math.round(celsiusToFarengeit(feelsLike))
 
     return (
         <div className={ s.bottom }>
@@ -39,7 +40,7 @@ const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme,
                         >&deg;F</div>
                     </div>
                 </div>
-                <div className={ s.feelsLike }>Feels like: { Math.round(feelsLike) } &deg;C</div>
+                <div className={ s.feelsLike }>Feels like: { feelsLikeCalc } &deg;{ tempScale }</div>
             </div>
             <div>
                 <div className={ s.option }>Wind: 
