@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import localStorageService from './localStorage'
 import useAction from './hooks/useAction'
+import Language from './components/Language'
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
 
     return (
         <div className='app'>
+            <Language/>
             <AddCity/>
             <WidgetsList/>
             <ToastContainer/>
