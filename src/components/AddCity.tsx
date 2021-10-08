@@ -3,6 +3,8 @@ import s from './AddCity.module.scss'
 import { toast } from 'react-toastify'
 import weatherAPI from '../API/weatherAPI'
 import useAction from '../hooks/useAction'
+import { CityWeather } from '../models/weather'
+import localStorageService from '../localStorage'
 
 const AddCity = () => {
 
@@ -23,13 +25,16 @@ const AddCity = () => {
             const data = await weatherAPI.getWeatherByCity(inputCity)
 
             if(data.cod === '200'){
-                addCityWeather({
-                        city: data.city.name,
-                        country: data.city.country,
-                        weather: data.list,
-                        id: Date.now(),
-                        tempScale: 'C'
-                    })
+                const cityWeather = {
+                    city: data.city.name,
+                    country: data.city.country,
+                    weather: data.list,
+                    id: Date.now(),
+                    tempScale: 'C'
+                } as CityWeather
+
+                addCityWeather(cityWeather)
+                localStorageService.addCity(cityWeather)
                 setInputCity('')
                 setIsLoading(false)
 

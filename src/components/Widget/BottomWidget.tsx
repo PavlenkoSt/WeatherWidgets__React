@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import useAction from '../../hooks/useAction'
+import localStorageService from '../../localStorage'
 import celsiusToFarengeit from '../../utilts/celsiusToFarengeit'
 import s from './Widget.module.scss'
 
@@ -23,6 +24,11 @@ const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme,
     const tempCalc = isCelsiusScale ? Math.round(temp) : Math.round(celsiusToFarengeit(temp))
     const feelsLikeCalc = isCelsiusScale ? Math.round(feelsLike) : Math.round(celsiusToFarengeit(feelsLike))
 
+    const changeScaleWeatherHandler = (id: number, scale: 'F' | 'C') => {
+        changeScaleWeather(id, scale)
+        localStorageService.changeScaleForCity(id, scale)
+    }
+
     return (
         <div className={ s.bottom }>
             <div>
@@ -31,12 +37,12 @@ const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme,
                     <div className={ s.tempTumbler }>
                         <div 
                             className={ isCelsiusScale ? `${s.tempItem} ${s.active}` : s.tempItem }
-                            onClick={ () => !isCelsiusScale && changeScaleWeather(id, 'C') }
+                            onClick={ () => !isCelsiusScale && changeScaleWeatherHandler(id, 'C') }
                         >&deg;C</div> 
                         | 
                         <div
                             className={ !isCelsiusScale ? `${s.tempItem} ${s.active}` : s.tempItem }
-                            onClick={ () => isCelsiusScale && changeScaleWeather(id, 'F') }
+                            onClick={ () => isCelsiusScale && changeScaleWeatherHandler(id, 'F') }
                         >&deg;F</div>
                     </div>
                 </div>

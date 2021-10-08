@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import useAction from '../../hooks/useAction'
+import localStorageService from '../../localStorage'
 import s from './Widget.module.scss'
 
 
@@ -16,9 +17,14 @@ const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, temp, icon, date
 
     const { removeCityWeather } = useAction()
 
+    const removeCityHandler = () => {
+        removeCityWeather(id)
+        localStorageService.removeCity(id)
+    }
+
     return (
         <>
-            <div className={ s.close } onClick={ () => removeCityWeather(id) } >&#10006;</div>
+            <div className={ s.close } onClick={ removeCityHandler } >&#10006;</div>
                 <div className={ s.top }>
                     <div className={ s.sity }>{ `${city}, ${country}` }</div>
                     <div className={ s.status }>
