@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { CityWeather } from '../../models/weather'
-import Chart from '../Chart'
+import Chart from './Chart/Chart'
 import BottomWidget from './BottomWidget'
 import TopWidget from './TopWidget'
 import s from './Widget.module.scss'
@@ -15,7 +15,7 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
     const currentWeather = widgetInfo.weather[0]
     const isColdTheme = Math.round(currentWeather.main.temp) < 0
 
-    const formatedDate = dateFormat(currentWeather.dt_txt, "ddd, dd mmmm, HH:MM")
+    const formatedDate = dateFormat(currentWeather.dt_txt, 'ddd, d mmmm, HH:MM')
 
     return (
         <div className={ s.container }>
@@ -29,6 +29,8 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
                     icon={ currentWeather.weather[0].icon }
                 />
                 <Chart 
+                    isColdTheme={ isColdTheme }
+                    allDaysWeatherData={ widgetInfo.weather }
                 />
                 <BottomWidget
                     id={ widgetInfo.id }
