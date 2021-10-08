@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTypedSelector } from '../hooks/useTypedSelector'
-import Widget from './Widget'
+import Widget from './Widget/Widget'
 import s from './WidgetsList.module.scss'
 
 const WidgetsList = () => {
