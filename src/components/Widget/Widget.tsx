@@ -38,8 +38,8 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
                     temp={ currentWeather.main.temp }
                     feelsLike={ currentWeather.main.feels_like }
                     wind={ currentWeather.wind.speed }
-                    humidity={ currentWeather.main.pressure }
-                    pressure={ currentWeather.main.humidity }
+                    humidity={ currentWeather.main.humidity }
+                    pressure={ currentWeather.main.pressure }
                     isColdTheme={ isColdTheme }
                 />
            </div>

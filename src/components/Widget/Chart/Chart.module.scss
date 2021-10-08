@@ -1,0 +1,30 @@
+.chartContainer{
+    width: 100%;
+    height: 150px;
+}
+
+.tooltip{
+    width: 80px;
+    min-height: 80px;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px #333;
+    padding: 10px;
+    color: #333;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.label{
+    font-size: 12px;
+}
+
+.t{
+    font-weight: 400;
+    color: #FFA25B;
+
+    &.cold{
+        color: #459DE9;
+    }
+}

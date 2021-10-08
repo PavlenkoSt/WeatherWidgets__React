@@ -2,6 +2,7 @@ import dateFormat from 'dateformat'
 import React, { FC } from 'react'
 import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import CustomTooltip from './CustomTooltip'
+import s from './Chart.module.scss'
 
 type ChartPropsType = {
   isColdTheme: boolean,
@@ -18,7 +19,7 @@ const Chart: FC<ChartPropsType> = React.memo(({ isColdTheme, allDaysWeatherData 
     const fill = isColdTheme ? '#5B8CFF' : '#FFA25B'
 
     return (
-        <div style={{ width: '100%', height: 150 }}>
+        <div className={ s.chartContainer }>
             <ResponsiveContainer>
             <AreaChart
                 data={ weatherData }
@@ -30,7 +31,7 @@ const Chart: FC<ChartPropsType> = React.memo(({ isColdTheme, allDaysWeatherData 
                 }}
             >
                 <XAxis dataKey="date" />
-                <Tooltip content={ <CustomTooltip /> } />
+                <Tooltip content={ <CustomTooltip isColdTheme={ isColdTheme } /> } />
                 <Area type="monotone" dataKey="Temperature" stroke={ fill } fill={ fill } />
             </AreaChart>
             </ResponsiveContainer>
