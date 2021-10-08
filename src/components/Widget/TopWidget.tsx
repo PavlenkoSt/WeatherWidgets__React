@@ -24,7 +24,7 @@ const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, temp, icon, date
                     <div className={ s.status }>
                         <img 
                             alt='weather-icon'
-                            src={ `http://openweathermap.org/img/wn/${ icon }@2x.png` }
+                            src={ `http://openweathermap.org/img/wn/${icon}@2x.png` }
                             className={ s.statusIcon }
                         />
                         <span>{ temp }</span>

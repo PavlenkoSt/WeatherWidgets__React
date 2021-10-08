@@ -7,6 +7,7 @@ import useAction from '../hooks/useAction'
 const AddCity = () => {
 
     const [ inputCity, setInputCity ] = useState('')
+    const [ isLoading, setIsLoading ] = useState(false)
 
     const { addCityWeather } = useAction()
 
@@ -18,6 +19,7 @@ const AddCity = () => {
 
     const addCityHandler = async () => {
         if(inputCity){
+            setIsLoading(true)
             const data = await weatherAPI.getWeatherByCity(inputCity)
 
             if(data.cod === '200'){
@@ -29,8 +31,12 @@ const AddCity = () => {
                         tempScale: 'C'
                     })
                 setInputCity('')
+                setIsLoading(false)
+
                 return
             }
+
+            setIsLoading(false)
 
             toast('City not found', toastOptions as {})
         }else{
@@ -48,6 +54,7 @@ const AddCity = () => {
             <button 
                 className={ s.btn }
                 onClick={ addCityHandler }
+                disabled={ isLoading }
             >Add</button>
         </div>
     )

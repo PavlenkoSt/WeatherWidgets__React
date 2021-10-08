@@ -39,4 +39,9 @@
         background-color: #007ae6;
         box-shadow: 0 3px 6px rgb(146, 146, 146);
     }
+
+    &:disabled{
+        background-color: #87bdec;
+        cursor: default;
+    }
 }
