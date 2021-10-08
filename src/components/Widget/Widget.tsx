@@ -4,6 +4,7 @@ import Chart from '../Chart'
 import BottomWidget from './BottomWidget'
 import TopWidget from './TopWidget'
 import s from './Widget.module.scss'
+import dateFormat from 'dateformat'
 
 type WidgetPropsType = {
     widgetInfo: CityWeather
@@ -14,6 +15,8 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
     const currentWeather = widgetInfo.weather[0]
     const isColdTheme = Math.round(currentWeather.main.temp) < 0
 
+    const formatedDate = dateFormat(currentWeather.dt_txt, "ddd, dd mmmm, HH:MM")
+
     return (
         <div className={ s.container }>
            <div className={ isColdTheme ? `${s.widget} ${s.cold}` : s.widget }>
@@ -21,12 +24,11 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
                     id={ widgetInfo.id }
                     city={ widgetInfo.city }
                     country={ widgetInfo.country }
-                    date={ currentWeather.dt_txt }
+                    date={ formatedDate }
                     temp={ currentWeather.main.temp }
                     icon={ currentWeather.weather[0].icon }
                 />
                 <Chart 
-                        
                 />
                 <BottomWidget
                     id={ widgetInfo.id }
