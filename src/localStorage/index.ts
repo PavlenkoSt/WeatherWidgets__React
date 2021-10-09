@@ -52,6 +52,23 @@ const localStorageService = {
                 })
             ))   
         }
+    },
+
+    updateWeatherData: (id: number, weather: any[]) => {
+        const cities = localStorage.getItem('weatherCities')
+        if(cities && cities.length){
+            const parsedCities = JSON.parse(cities)
+
+            localStorage.setItem('weatherCities', JSON.stringify(
+                parsedCities.map((city: CityWeather) => {
+                    if(city.id === id){
+                        city.weather = weather
+                    }
+
+                    return city
+                })
+            ))   
+        }
     }
 }
 

@@ -23,6 +23,14 @@ const weatherReducer = (state = initialState, action: WeatherActionCreatorsType)
                 return cityW
             }) }
             
+        case WeatherActionTypes.REFETCH_WEATHER: 
+            return { ...state, citiesWeather: state.citiesWeather.map(cityW => {
+                if(cityW.id === action.payload.id){
+                    cityW.weather = action.payload.weather
+                }
+                return cityW
+            }) }
+
         default:    
             return state
     }

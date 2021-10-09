@@ -10,13 +10,14 @@ import Language from './components/Language'
 
 const App = () => {
 
-    const { setCitiesWeather } = useAction()
+    const { setCitiesWeather, refetchCitiesWeatherThunk } = useAction()
 
     useEffect(() => {
         const cities = localStorageService.getCities()
 
         if(cities && cities.length){
             setCitiesWeather(cities)
+            refetchCitiesWeatherThunk(cities)
         }
     }, [])
 

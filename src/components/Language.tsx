@@ -5,9 +5,9 @@ const Language = () => {
     return (
         <div className={ s.container }>
             <select>
-                <option value="En">En</option>
-                <option value="Ru">Ru</option>
-                <option value="He">He</option>
+                <option value="en">En</option>
+                <option value="ua">Ua</option>
+                <option value="he">He</option>
             </select>
         </div>
     )

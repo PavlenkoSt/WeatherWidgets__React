@@ -14,7 +14,7 @@ type ChartPropsType = {
 const Chart: FC<ChartPropsType> = React.memo(({ isColdTheme, allDaysWeatherData, tempScale }) => {
 
     const weatherData = allDaysWeatherData.map(oneDayWeather => ({
-        date: dateFormat(oneDayWeather.dt_txt, 'dd.mm hh:MM'),
+        date: dateFormat(oneDayWeather.dt_txt, 'dd.mm HH:MM'),
         Temperature: tempScale === 'C' ? Math.floor(oneDayWeather.main.temp) : Math.floor(celsiusToFarengeit(oneDayWeather.main.temp))
     }))
 

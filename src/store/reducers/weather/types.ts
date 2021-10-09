@@ -8,7 +8,8 @@ export enum WeatherActionTypes {
     SET_CITIES_WEATHER = 'SET_CITIES_WEATHER',
     ADD_CITY_WEATHER = 'ADD_CITY_WEATHER',
     REMOVE_CITY_WEATHER = 'REMOVE_CITY_WEATHER',
-    CHANGE_SCALE_WEATHER = 'CHANGE_SCALE_WEATHER'
+    CHANGE_SCALE_WEATHER = 'CHANGE_SCALE_WEATHER',
+    REFETCH_WEATHER = 'REFETCH_WEATHER'
 }
 
 type SetWeatherListType = {
@@ -26,13 +27,19 @@ type RemoveWeatherListType = {
     payload: number
 }
 
-type ChangeScaleWeather = {
+type ChangeScaleWeatherType = {
     type: WeatherActionTypes.CHANGE_SCALE_WEATHER
     payload: { id: number, scale: 'F' | 'C' }
 }
 
+type RefetchWeateherType = {
+    type: WeatherActionTypes.REFETCH_WEATHER
+    payload: { id: number, weather: any[] }
+}
+
 export type WeatherActionCreatorsType = 
-    SetWeatherListType | 
+    SetWeatherListType |
     AddWeatherListType |
     RemoveWeatherListType |
-    ChangeScaleWeather
+    ChangeScaleWeatherType |
+    RefetchWeateherType
