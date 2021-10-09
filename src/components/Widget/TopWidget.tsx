@@ -9,11 +9,11 @@ type TopWidgetPropsType = {
     country: string
     id: number
     date: string
-    temp: number
+    status: number
     icon: string
 }
 
-const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, temp, icon, date }) => {
+const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, status, icon, date }) => {
 
     const { removeCityWeather } = useAction()
 
@@ -33,7 +33,7 @@ const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, temp, icon, date
                             src={ `http://openweathermap.org/img/wn/${icon}@2x.png` }
                             className={ s.statusIcon }
                         />
-                        <span>{ temp }</span>
+                        <span>{ status }</span>
                     </div>
                 </div>
             <div className={ s.date }>{ date }</div>   

@@ -15,6 +15,9 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
     const currentWeather = widgetInfo.weather[0]
     const isColdTheme = Math.round(currentWeather.main.temp) < 0
 
+    console.log(currentWeather)
+    
+
     const formatedDate = dateFormat(currentWeather.dt_txt, 'ddd, d mmmm, HH:MM')
 
     return (
@@ -25,7 +28,7 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
                     city={ widgetInfo.city }
                     country={ widgetInfo.country }
                     date={ formatedDate }
-                    temp={ currentWeather.main.temp }
+                    status={ currentWeather.weather[0].description }
                     icon={ currentWeather.weather[0].icon }
                 />
                 <Chart 
