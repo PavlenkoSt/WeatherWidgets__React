@@ -8,18 +8,24 @@ import localStorageService from './localStorage'
 import useAction from './hooks/useAction'
 import Language from './components/Language'
 import { useTypedSelector } from './hooks/useTypedSelector'
+import { LangType } from './store/reducers/options/types'
 
 const App = () => {
 
-    const { setCitiesWeather, refetchCitiesWeatherThunk } = useAction()
+    const { setCitiesWeather, refetchCitiesWeatherThunk, changeLang } = useAction()
     const { lang } = useTypedSelector(state => state.optionsReducer)
 
     useEffect(() => {
+        const langFromLS = localStorageService.getLang() as LangType
         const cities = localStorageService.getCities()
+
+        if(langFromLS){
+            changeLang(langFromLS)
+        }
 
         if(cities && cities.length){
             setCitiesWeather(cities)
-            refetchCitiesWeatherThunk(cities, lang)
+            refetchCitiesWeatherThunk(cities, langFromLS ? langFromLS : lang)
         }
     }, [])
 

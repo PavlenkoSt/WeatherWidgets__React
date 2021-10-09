@@ -3,6 +3,20 @@
     padding: 10px;
 }
 
+.rtl{
+    & .top{
+        flex-direction: row-reverse;
+    }
+
+    & .close{
+        left: 5px;
+    }
+
+    & .date{
+        text-align: right;
+    }
+}
+
 .widget{
     background-color: #FFFAF1;
     border-radius: 5px;

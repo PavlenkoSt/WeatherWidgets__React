@@ -4,6 +4,7 @@ import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import CustomTooltip from './CustomTooltip'
 import s from './Chart.module.scss'
 import celsiusToFarengeit from '../../../utilts/celsiusToFarengeit'
+import { useTypedSelector } from '../../../hooks/useTypedSelector'
 
 type ChartPropsType = {
   isColdTheme: boolean,
@@ -12,6 +13,8 @@ type ChartPropsType = {
 }
 
 const Chart: FC<ChartPropsType> = React.memo(({ isColdTheme, allDaysWeatherData, tempScale }) => {
+
+    const { rtl } = useTypedSelector(state => state.optionsReducer)
 
     const weatherData = allDaysWeatherData.map(oneDayWeather => ({
         date: dateFormat(oneDayWeather.dt_txt, 'dd.mm HH:MM'),
@@ -32,7 +35,7 @@ const Chart: FC<ChartPropsType> = React.memo(({ isColdTheme, allDaysWeatherData,
                     bottom: 0,
                 }}
             >
-                <XAxis dataKey="date" />
+                <XAxis dataKey="date" reversed={ rtl } />
                 <Tooltip content={ 
                     <CustomTooltip 
                         isColdTheme={ isColdTheme } 

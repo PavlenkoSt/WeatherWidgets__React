@@ -1,3 +1,4 @@
+import { LangType } from '../store/reducers/options/types'
 import { CityWeather } from './../models/weather'
 
 
@@ -69,6 +70,14 @@ const localStorageService = {
                 })
             ))   
         }
+    },
+
+    setLang: (lang: LangType) => {
+        localStorage.setItem('lang', lang)
+    },
+
+    getLang: () => {
+        return localStorage.getItem('lang')
     }
 }
 

@@ -4,10 +4,10 @@ import { toast } from 'react-toastify'
 import useAction from '../hooks/useAction'
 import { CityWeather } from '../models/weather'
 import PlacesAuthocomplete from 'react-places-autocomplete'
+import cityFormat from '../utilts/cityFormat'
 
 //@ts-ignore
 import scriptLoader from 'react-async-script-loader'
-import cityFormat from '../utilts/cityFormat'
 
 
 const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
@@ -45,7 +45,6 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
     const selectSuggestionHandler = (value: string) => {
         const city = cityFormat(value)
         setInputCity(() => city)
-        
         addCityHandler(city)
     }
 

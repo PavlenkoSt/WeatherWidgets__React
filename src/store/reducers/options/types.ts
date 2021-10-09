@@ -1,7 +1,8 @@
 export type LangType = 'en' | 'ua' | 'he'
 
 export type OptionsStateType = {
-    lang: LangType
+    lang: LangType,
+    rtl: boolean
 }
 
 export enum OptionsActionsTypes {

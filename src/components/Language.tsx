@@ -1,6 +1,7 @@
 import React from 'react'
 import useAction from '../hooks/useAction'
 import { useTypedSelector } from '../hooks/useTypedSelector'
+import localStorageService from '../localStorage'
 import s from './Language.module.scss'
 
 const Language = () => {
@@ -11,7 +12,9 @@ const Language = () => {
 
     const selectHandler = (e: any) => {
         const lang = e.target.value
+
         changeLang(lang)
+        localStorageService.setLang(lang)
         refetchCitiesWeatherThunk(citiesWeather, lang)
     }
 

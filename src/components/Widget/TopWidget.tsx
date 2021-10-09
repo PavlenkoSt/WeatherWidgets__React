@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import useAction from '../../hooks/useAction'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 import localStorageService from '../../localStorage'
+import dateLang from '../../utilts/dateLang'
 import s from './Widget.module.scss'
 
 
@@ -22,6 +24,8 @@ const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, status, icon, da
         localStorageService.removeCity(id)
     }
 
+    const { lang } = useTypedSelector(state => state.optionsReducer)
+
     return (
         <>
             <div className={ s.close } onClick={ removeCityHandler } >&#10006;</div>
@@ -36,7 +40,7 @@ const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, status, icon, da
                         <span>{ status }</span>
                     </div>
                 </div>
-            <div className={ s.date }>{ date }</div>   
+            <div className={ s.date }>{ dateLang(date, lang)  }</div>   
         </>
     )
 }
