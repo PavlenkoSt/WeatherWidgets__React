@@ -52,3 +52,31 @@
     color: #333;
     margin-top: 50px;
 }
+
+.inputContainer{
+    position: relative;
+}
+
+.dropdown{
+    max-width: 500px;
+    background-color: #fff;
+    width: 100%;
+    box-shadow: 0 3px 6px #00000029;
+    position: absolute;
+    top: 45px;
+    left: 0;
+    z-index: 10;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.suggestion{
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all ease .2s;
+
+    &:hover{
+        background-color: #007ae6;
+        color: #fff;
+    }
+}

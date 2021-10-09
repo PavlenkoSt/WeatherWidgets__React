@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 import useAction from '../../hooks/useAction'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 import localStorageService from '../../localStorage'
 import celsiusToFarengeit from '../../utilts/celsiusToFarengeit'
+import terms from '../../utilts/terms'
 import s from './Widget.module.scss'
 
 
@@ -18,6 +20,7 @@ type BottomWidgetPropsType = {
 
 const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme, feelsLike, id, wind, humidity, pressure }) => {
 
+    const { lang } = useTypedSelector(state => state.optionsReducer)
     const { changeScaleWeather } = useAction()
 
     const isCelsiusScale = tempScale === 'C'
@@ -46,16 +49,16 @@ const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme,
                         >&deg;F</div>
                     </div>
                 </div>
-                <div className={ s.feelsLike }>Feels like: { feelsLikeCalc } &deg;{ tempScale }</div>
+                <div className={ s.feelsLike }>{ terms.feelsLike[lang] }: { feelsLikeCalc } &deg;{ tempScale }</div>
             </div>
             <div>
-                <div className={ s.option }>Wind: 
+                <div className={ s.option }>{ terms.wind[lang] }: 
                     <span className={ isColdTheme ? s.cold : ''} >{ wind } m/s</span>
                 </div>
-                <div className={ s.option }>Humidity: 
+                <div className={ s.option }>{ terms.humidity[lang] }: 
                     <span className={ isColdTheme ? s.cold : ''}>{ humidity } %</span>
                 </div>
-                <div className={ s.option }>Pressure: 
+                <div className={ s.option }>{ terms.pressure[lang] }: 
                     <span className={ isColdTheme ? s.cold : ''}>{ pressure } Pa</span>
                 </div>
             </div>

@@ -7,6 +7,7 @@ import PlacesAuthocomplete from 'react-places-autocomplete'
 
 //@ts-ignore
 import scriptLoader from 'react-async-script-loader'
+import cityFormat from '../utilts/cityFormat'
 
 
 const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
@@ -22,10 +23,11 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
         position: 'bottom-center'
     }
 
-    const addCityHandler = async () => {
+    const addCityHandler = async (value?: string) => {
         if(inputCity){
+            
             setIsLoading(true)
-            const city = await addCityWeatherThunk(inputCity) as unknown as CityWeather
+            const city = await addCityWeatherThunk(value ? value : inputCity) as unknown as CityWeather
 
             if(city){
                 setInputCity('')
@@ -40,46 +42,46 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
         }
     }
 
+    const selectSuggestionHandler = (value: string) => {
+        const city = cityFormat(value)
+        setInputCity(() => city)
+        
+        addCityHandler(city)
+    }
+
     if(!isScriptLoaded || !isScriptLoadSucceed){
         return <div className={ s.load } >Loading...</div>
     }
 
     return (
         <div className={ s.container } >
-            {/* <input 
-                className={ s.input } 
-                value={ inputCity }
-                onChange={ (e) => setInputCity(e.target.value) }
-            /> */}
-            <PlacesAuthocomplete value={ inputCity } onChange={ (value) => setInputCity(value) } onSelect={ (value) => setInputCity(value) } >
+            <PlacesAuthocomplete 
+                value={ inputCity } 
+                onChange={ (value) => setInputCity(value) } 
+                onSelect={ selectSuggestionHandler } 
+                searchOptions={ { types: ['(cities)'] } }
+            >
                 {
-                    ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                        <div>
+                    ({ getInputProps, suggestions, getSuggestionItemProps }) => (
+                        <div className={ s.inputContainer } >
                             <input
-                                {...getInputProps({
+                                { ...getInputProps({
                                     className: s.input,
-                                  })}
+                                }) }
                             />
-                            <div className="autocomplete-dropdown-container">
-                                {loading && <div>Loading...</div>}
-                                {suggestions.map(suggestion => {
+                            <div className={ s.dropdown }>
+                                { suggestions.map(suggestion => {
                                     const className = suggestion.active
-                                        ? 'suggestion-item--active'
-                                        : 'suggestion-item';
-                                    // inline style for demonstration purpose
-                                    const style = suggestion.active
-                                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                        ? `${s.suggestion} ${s.active}`
+                                        : s.suggestion
                                     return (
                                         <div
-                                            {...getSuggestionItemProps(suggestion, {
-                                                className,
-                                                style,
-                                            })}
+                                            {...getSuggestionItemProps(suggestion, { className })}
+                                            key={ suggestion.placeId }
                                         >
-                                            <span>{suggestion.description}</span>
+                                            <span>{ cityFormat(suggestion.description) }</span>
                                         </div>
-                                    );
+                                    )
                                 })}
                             </div>
                         </div>
@@ -88,7 +90,7 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
             </PlacesAuthocomplete>
             <button 
                 className={ s.btn }
-                onClick={ addCityHandler }
+                onClick={ () => addCityHandler() }
                 disabled={ isLoading }
             >Add</button>
         </div>

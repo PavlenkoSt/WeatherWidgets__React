@@ -37,10 +37,10 @@ const weatherActionCreators = {
             return null
         }
     },
-    refetchCitiesWeatherThunk: (cities: CityWeather[]) => async (dispatch: AppDispatch) => {
+    refetchCitiesWeatherThunk: (cities: CityWeather[], lang: string) => async (dispatch: AppDispatch) => {
         try{
             cities.forEach( async (city) => {
-                const data = await weatherAPI.getWeatherByCity(city.city)
+                const data = await weatherAPI.getWeatherByCity(city.city, lang)
 
                 if(data.cod === '200'){
                     //@ts-ignore
