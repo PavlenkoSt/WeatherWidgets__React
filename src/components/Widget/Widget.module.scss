@@ -10,10 +10,24 @@
 
     & .close{
         left: 5px;
+        right: auto;
     }
 
     & .date{
         text-align: right;
+    }
+
+    & .bottom{
+        flex-direction: row-reverse;
+    }
+
+    & .option{
+        flex-direction: row-reverse;
+    }
+
+    & .feelsLike{
+        display: flex;
+        flex-direction: row-reverse;
     }
 }
 
@@ -117,16 +131,20 @@
     font-size: 13px;
 }
 
+.feelsLikeVal{
+    margin: 0 5px;
+}
+
 .option{
     display: flex;
     justify-content: flex-end;
     font-size: 13px;
     margin-bottom: 5px;
-    gap: 5px;
     color: #333;
 
-    & span{
+    & .val{
         color: #FFA25B;
+        margin: 0 5px;
 
         &.cold{
             color: #459DE9;

@@ -34,7 +34,7 @@ type ChangeScaleWeatherType = {
 
 type RefetchWeateherType = {
     type: WeatherActionTypes.REFETCH_WEATHER
-    payload: { id: number, weather: any[] }
+    payload: { id: number, weather: any[], name: string }
 }
 
 export type WeatherActionCreatorsType = 

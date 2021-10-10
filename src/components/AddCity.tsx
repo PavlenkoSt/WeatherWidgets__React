@@ -8,12 +8,15 @@ import cityFormat from '../utilts/cityFormat'
 
 //@ts-ignore
 import scriptLoader from 'react-async-script-loader'
+import { useTypedSelector } from '../hooks/useTypedSelector'
 
 
 const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
 
     const [ inputCity, setInputCity ] = useState('')
     const [ isLoading, setIsLoading ] = useState(false)
+
+    const { lang } = useTypedSelector(state => state.optionsReducer)
 
     const { addCityWeatherThunk } = useAction()
 
@@ -27,7 +30,7 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
         if(inputCity){
             
             setIsLoading(true)
-            const city = await addCityWeatherThunk(value ? value : inputCity) as unknown as CityWeather
+            const city = await addCityWeatherThunk(value ? value : inputCity, lang) as unknown as CityWeather
 
             if(city){
                 setInputCity('')

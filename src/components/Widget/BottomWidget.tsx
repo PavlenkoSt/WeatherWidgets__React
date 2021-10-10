@@ -19,7 +19,7 @@ type BottomWidgetPropsType = {
 }
 
 const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme, feelsLike, id, wind, humidity, pressure }) => {
-
+    
     const { lang } = useTypedSelector(state => state.optionsReducer)
     const { changeScaleWeather } = useAction()
 
@@ -49,17 +49,27 @@ const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme,
                         >&deg;F</div>
                     </div>
                 </div>
-                <div className={ s.feelsLike }>{ terms.feelsLike[lang] }: { feelsLikeCalc } &deg;{ tempScale }</div>
+                <div className={ s.feelsLike }>
+                    <span>{ terms.feelsLike[lang] }</span>
+                    : 
+                    <span className={ s.feelsLikeVal } >{ feelsLikeCalc } &deg;{ tempScale }</span>
+                </div>
             </div>
             <div>
-                <div className={ s.option }>{ terms.wind[lang] }: 
-                    <span className={ isColdTheme ? s.cold : ''} >{ wind } m/s</span>
+                <div className={ s.option }>
+                    <span>{ terms.wind[lang] }</span>
+                    :
+                    <span className={ isColdTheme ? `${s.val} ${s.cold}` : s.val} >{ wind } m/s</span>
                 </div>
-                <div className={ s.option }>{ terms.humidity[lang] }: 
-                    <span className={ isColdTheme ? s.cold : ''}>{ humidity } %</span>
+                <div className={ s.option }>
+                    <span>{ terms.humidity[lang] }</span>
+                    :
+                    <span className={ isColdTheme ? `${s.val} ${s.cold}` : s.val} >{ humidity } %</span>
                 </div>
-                <div className={ s.option }>{ terms.pressure[lang] }: 
-                    <span className={ isColdTheme ? s.cold : ''}>{ pressure } Pa</span>
+                <div className={ s.option }>
+                    <span>{ terms.pressure[lang] }</span>
+                    :
+                    <span className={ isColdTheme ? `${s.val} ${s.cold}` : s.val} >{ pressure } Pa</span>
                 </div>
             </div>
         </div>

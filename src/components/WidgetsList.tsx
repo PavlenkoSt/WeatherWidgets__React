@@ -6,6 +6,7 @@ import s from './WidgetsList.module.scss'
 const WidgetsList = () => {
 
     const { citiesWeather } = useTypedSelector(state => state.weatherReducer)
+    const { rtl } = useTypedSelector(state => state.optionsReducer)
 
     const renderWidgets = citiesWeather.map(cityW => <Widget
         key={ cityW.id }
@@ -17,7 +18,7 @@ const WidgetsList = () => {
     }
     
     return (
-        <div className={s.list} >
+        <div className={rtl ? `${s.list} ${s.rtl}` : s.list} >
             { renderWidgets }
         </div>
     )

@@ -3,6 +3,7 @@ import { CityWeather } from "../../../models/weather"
 import { WeatherActionTypes } from "./types"
 import weatherAPI from '../../../API/weatherAPI'
 import localStorageService from '../../../localStorage'
+import { LangType } from '../options/types'
 
 
 const weatherActionCreators = {
@@ -10,10 +11,10 @@ const weatherActionCreators = {
     addCityWeather: (cityWeather: CityWeather) => ({ type: WeatherActionTypes.ADD_CITY_WEATHER, payload: cityWeather }),
     removeCityWeather: (id: number) => ({ type: WeatherActionTypes.REMOVE_CITY_WEATHER, payload: id }),
     changeScaleWeather: (id: number, scale: 'C' | 'F') => ({ type: WeatherActionTypes.CHANGE_SCALE_WEATHER, payload: { id, scale } }),
-    refetchCityWeather: (id: number, weather: any[]) => ({ type: WeatherActionTypes.REFETCH_WEATHER, payload: { id, weather } }),
-    addCityWeatherThunk: (city: string) => async (dispatch: AppDispatch) => {
+    refetchCityWeather: (id: number, weather: any[], name: string) => ({ type: WeatherActionTypes.REFETCH_WEATHER, payload: { id, weather, name } }),
+    addCityWeatherThunk: (city: string, lang: LangType = 'en') => async (dispatch: AppDispatch) => {
         try{
-            const data = await weatherAPI.getWeatherByCity(city)
+            const data = await weatherAPI.getWeatherByCity(city, lang)
 
             if(data.cod === '200'){
                 const city = {
@@ -44,7 +45,7 @@ const weatherActionCreators = {
 
                 if(data.cod === '200'){
                     //@ts-ignore
-                    await dispatch(weatherActionCreators.refetchCityWeather(city.id, data.list))
+                    await dispatch(weatherActionCreators.refetchCityWeather(city.id, data.list, data.city.name))
                     localStorageService.updateWeatherData(city.id, data.list)
                 }
             })

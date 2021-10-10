@@ -27,6 +27,7 @@ const weatherReducer = (state = initialState, action: WeatherActionCreatorsType)
             return { ...state, citiesWeather: state.citiesWeather.map(cityW => {
                 if(cityW.id === action.payload.id){
                     cityW.weather = action.payload.weather
+                    cityW.city = action.payload.name
                 }
                 return cityW
             }) }
