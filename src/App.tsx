@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import localStorageService from './localStorage'
 import useAction from './hooks/useAction'
-import Language from './components/Language'
+import Language from './components/Language/Language'
 import { useTypedSelector } from './hooks/useTypedSelector'
 import { LangType } from './store/reducers/options/types'
 

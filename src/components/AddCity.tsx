@@ -5,11 +5,12 @@ import useAction from '../hooks/useAction'
 import { CityWeather } from '../models/weather'
 import PlacesAuthocomplete from 'react-places-autocomplete'
 import cityFormat from '../utilts/cityFormat'
+import { useTypedSelector } from '../hooks/useTypedSelector'
+import terms from '../utilts/terms'
 
 //@ts-ignore
 import scriptLoader from 'react-async-script-loader'
-import { useTypedSelector } from '../hooks/useTypedSelector'
-import terms from '../utilts/terms'
+
 
 
 const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
