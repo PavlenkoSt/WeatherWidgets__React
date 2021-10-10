@@ -81,10 +81,9 @@
 .suggestion{
     padding: 5px 10px;
     cursor: pointer;
-    transition: all ease .2s;
+    transition: background-color ease .2s;
 
     &:hover{
-        background-color: #007ae6;
-        color: #fff;
+        background-color: #F2F2F2;
     }
 }
