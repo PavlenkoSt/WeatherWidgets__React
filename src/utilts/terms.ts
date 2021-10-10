@@ -23,6 +23,16 @@ const terms = {
         en: 'Add',
         ua: 'Додати',
         he: 'לְהוֹסִיף'
+    },
+    cityNotFound: {
+        en: 'City not found',
+        ua: 'Місто не знайдено',
+        he: 'העיר לא נמצאה'
+    },
+    emptyField: {
+        en: 'The field cannot be empty',
+        ua: 'Поле не може бути порожнім',
+        he: 'השדה לא יכול להיות ריק'
     }
 }
 

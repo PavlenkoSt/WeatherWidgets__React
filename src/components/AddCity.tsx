@@ -24,7 +24,9 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
     const toastOptions = {
         hideProgressBar: true,
         autoClose: 2000,
-        position: 'bottom-center'
+        position: 'bottom-center',
+        closeButton: false,
+        className: rtl ? s.rtl : ''
     }
 
     const addCityHandler = async (value?: string) => {
@@ -38,10 +40,10 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
                 return
             }
 
-            toast('City not found', toastOptions as {})
+            toast(terms.cityNotFound[lang], toastOptions as {})
             setIsLoading(false)
         }else{
-            toast('The field cannot be empty', toastOptions as {})
+            toast(terms.emptyField[lang], toastOptions as {})
         }
     }
 
