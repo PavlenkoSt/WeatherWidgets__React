@@ -7,7 +7,7 @@ import s from './Language.module.scss'
 const Language = () => {
 
     const { changeLang, refetchCitiesWeatherThunk } = useAction()
-    const { lang } = useTypedSelector(state => state.optionsReducer)
+    const { lang, rtl } = useTypedSelector(state => state.optionsReducer)
     const { citiesWeather } = useTypedSelector(state => state.weatherReducer)
 
     const selectHandler = (e: any) => {
@@ -19,8 +19,12 @@ const Language = () => {
     }
 
     return (
-        <div className={ s.container }>
-            <select value={ lang } onChange={ selectHandler } >
+        <div className={ rtl ? `${s.container} ${s.rtl}` : s.container }>
+            <select 
+                value={ lang } 
+                onChange={ selectHandler } 
+                dir={ rtl ? 'rtl' : 'ltr' } 
+            >
                 <option value="en">En</option>
                 <option value="ua">Ua</option>
                 <option value="he">He</option>

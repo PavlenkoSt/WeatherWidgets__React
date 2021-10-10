@@ -4,4 +4,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    &.rtl{
+        justify-content: flex-start;
+    }
 }

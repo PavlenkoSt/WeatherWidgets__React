@@ -24,6 +24,7 @@ const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme,
     const { changeScaleWeather } = useAction()
 
     const isCelsiusScale = tempScale === 'C'
+    
     const tempCalc = isCelsiusScale ? Math.round(temp) : Math.round(celsiusToFarengeit(temp))
     const feelsLikeCalc = isCelsiusScale ? Math.round(feelsLike) : Math.round(celsiusToFarengeit(feelsLike))
 
