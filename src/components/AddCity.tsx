@@ -9,6 +9,7 @@ import cityFormat from '../utilts/cityFormat'
 //@ts-ignore
 import scriptLoader from 'react-async-script-loader'
 import { useTypedSelector } from '../hooks/useTypedSelector'
+import terms from '../utilts/terms'
 
 
 const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
@@ -16,7 +17,7 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
     const [ inputCity, setInputCity ] = useState('')
     const [ isLoading, setIsLoading ] = useState(false)
 
-    const { lang } = useTypedSelector(state => state.optionsReducer)
+    const { lang, rtl } = useTypedSelector(state => state.optionsReducer)
 
     const { addCityWeatherThunk } = useAction()
 
@@ -28,7 +29,6 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
 
     const addCityHandler = async (value?: string) => {
         if(inputCity){
-            
             setIsLoading(true)
             const city = await addCityWeatherThunk(value ? value : inputCity, lang) as unknown as CityWeather
 
@@ -37,9 +37,9 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
                 setIsLoading(false)
                 return
             }
-            setIsLoading(false)
 
             toast('City not found', toastOptions as {})
+            setIsLoading(false)
         }else{
             toast('The field cannot be empty', toastOptions as {})
         }
@@ -56,7 +56,7 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
     }
 
     return (
-        <div className={ s.container } >
+        <div className={ rtl ? `${s.container} ${s.rtl}` : s.container } >
             <PlacesAuthocomplete 
                 value={ inputCity } 
                 onChange={ (value) => setInputCity(value) } 
@@ -70,6 +70,8 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
                                 { ...getInputProps({
                                     className: s.input,
                                 }) }
+                                dir={ rtl ? 'rtl' : 'ltl' }
+                                
                             />
                             <div className={ s.dropdown }>
                                 { suggestions.map(suggestion => {
@@ -94,7 +96,9 @@ const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
                 className={ s.btn }
                 onClick={ () => addCityHandler() }
                 disabled={ isLoading }
-            >Add</button>
+            >{
+                terms.add[lang]
+            }</button>
         </div>
     )
 }

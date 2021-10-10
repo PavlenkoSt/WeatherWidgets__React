@@ -5,6 +5,10 @@
     margin: 50px 0;
     gap: 10px;
     padding: 0 15px;
+
+    &.rtl{
+        flex-direction: row-reverse;
+    }
 }
 
 .input{
