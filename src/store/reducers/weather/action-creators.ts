@@ -7,6 +7,8 @@ import { LangType } from '../options/types'
 
 
 const weatherActionCreators = {
+    // ac
+
     setCitiesWeather: (citiesWeather: CityWeather[]) => ({ type: WeatherActionTypes.SET_CITIES_WEATHER, payload: citiesWeather }),
     
     addCityWeather: (cityWeather: CityWeather) => ({ type: WeatherActionTypes.ADD_CITY_WEATHER, payload: cityWeather }),
@@ -19,12 +21,11 @@ const weatherActionCreators = {
     
     fetchWeatherGeo: (cityWeaher: CityWeather) => ({ type: WeatherActionTypes.FETCH_WEATHER_GEO, payload: cityWeaher }),
 
+    // thunks
     
     fetchWeatherGeoThunk: (coords: any, lang: LangType) => async (dispatch: AppDispatch) => {
         try{
             const data = await weatherAPI.getWeatherByGeo(coords, lang)
-
-            console.log(data);
 
             if(data.cod === '200'){
                 const city = {
@@ -46,7 +47,6 @@ const weatherActionCreators = {
             console.log(e)
         }
     },
-
 
     addCityWeatherThunk: (city: string, lang: LangType = 'en') => async (dispatch: AppDispatch) => {
         try{

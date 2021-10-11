@@ -1,5 +1,5 @@
 import { CityWeather } from "../../../models/weather"
-import { LangType } from "../options/types"
+
 
 export type WeatherStateType = {
     citiesWeather: CityWeather[]
