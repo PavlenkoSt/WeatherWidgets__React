@@ -1,4 +1,5 @@
 import { CityWeather } from "../../../models/weather"
+import { LangType } from "../options/types"
 
 export type WeatherStateType = {
     citiesWeather: CityWeather[]
@@ -10,6 +11,7 @@ export enum WeatherActionTypes {
     REMOVE_CITY_WEATHER = 'REMOVE_CITY_WEATHER',
     CHANGE_SCALE_WEATHER = 'CHANGE_SCALE_WEATHER',
     REFETCH_WEATHER = 'REFETCH_WEATHER',
+    FETCH_WEATHER_GEO = 'FETCH_WEATHER_GEO'
 }
 
 type SetWeatherListType = {
@@ -37,9 +39,15 @@ type RefetchWeateherType = {
     payload: { id: number, weather: any[], name: string }
 }
 
+type FetchWetherGeoType = {
+    type: WeatherActionTypes.FETCH_WEATHER_GEO
+    payload: CityWeather 
+}
+
 export type WeatherActionCreatorsType = 
     SetWeatherListType |
     AddWeatherListType |
     RemoveWeatherListType |
     ChangeScaleWeatherType |
-    RefetchWeateherType
+    RefetchWeateherType |
+    FetchWetherGeoType

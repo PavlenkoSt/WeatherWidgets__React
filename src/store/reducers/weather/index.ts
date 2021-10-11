@@ -32,6 +32,9 @@ const weatherReducer = (state = initialState, action: WeatherActionCreatorsType)
                 return cityW
             }) }
 
+        case WeatherActionTypes.FETCH_WEATHER_GEO:
+            return { ...state, citiesWeather: [ action.payload, ...state.citiesWeather.filter(city => city.city !== action.payload.city) ] }
+        
         default:    
             return state
     }

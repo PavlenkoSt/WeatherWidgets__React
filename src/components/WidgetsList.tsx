@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import useAction from '../hooks/useAction'
+import { usePosition } from '../hooks/usePosition'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import Widget from './Widget/Widget'
 import s from './WidgetsList.module.scss'
@@ -6,7 +8,17 @@ import s from './WidgetsList.module.scss'
 const WidgetsList = () => {
 
     const { citiesWeather } = useTypedSelector(state => state.weatherReducer)
-    const { rtl } = useTypedSelector(state => state.optionsReducer)
+    const { rtl, lang } = useTypedSelector(state => state.optionsReducer)
+
+    const { fetchWeatherGeoThunk } = useAction()
+
+    const { error, latitude, longitude } = usePosition()
+
+    useEffect(() => {
+        if(!error && latitude && longitude){
+            fetchWeatherGeoThunk({ latitude, longitude }, lang)
+        }
+    }, [latitude, longitude])
 
     const renderWidgets = citiesWeather.map(cityW => <Widget
         key={ cityW.id }
