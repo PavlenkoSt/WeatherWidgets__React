@@ -11,12 +11,13 @@ const AppContainer = () => {
     const [ isGotGeoCity, setIsGotGeoCity ] = useState(false)
 
     const { lang } = useTypedSelector(state => state.optionsReducer)
+    const { citiesWeather } = useTypedSelector(state => state.weatherReducer)
 
     const { setCitiesWeather, refetchCitiesWeatherThunk, changeLang, fetchWeatherGeoThunk } = useAction()
     const { error, latitude, longitude } = usePosition()
 
     useEffect(() => {
-        // synchronization of business data with local storage and request for the current weather
+        // get business data with local storage and request for the current weather
 
         const langFromLS = localStorageService.getLang() as LangType
         const cities = localStorageService.getCities()
@@ -43,6 +44,12 @@ const AppContainer = () => {
             }
         }
     }, [latitude, longitude])
+
+    useEffect(() => {
+        // synchronization of business data with local storage
+
+        localStorageService.setCities(citiesWeather)
+    }, [citiesWeather])
 
     return <App/>
 }

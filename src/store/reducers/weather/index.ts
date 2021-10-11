@@ -33,7 +33,14 @@ const weatherReducer = (state = initialState, action: WeatherActionCreatorsType)
             }) }
 
         case WeatherActionTypes.FETCH_WEATHER_GEO:
-            return { ...state, citiesWeather: [ action.payload, ...state.citiesWeather.filter(city => city.city !== action.payload.city) ] }
+            const exist = state.citiesWeather.find(city => city.city === action.payload.city)
+            
+            if(exist){
+                exist.weather = action.payload.weather
+                return { ...state, citiesWeather: [ exist, ...state.citiesWeather.filter(city => city.city !== action.payload.city) ] }
+            }
+
+            return { ...state, citiesWeather: [ action.payload, ...state.citiesWeather ] }
         
         default:    
             return state

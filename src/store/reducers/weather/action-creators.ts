@@ -2,8 +2,8 @@ import { CityWeather } from './../../../models/weather'
 import { AppDispatch } from './../../index'
 import { WeatherActionTypes } from "./types"
 import weatherAPI from '../../../API/weatherAPI'
-import localStorageService from '../../../localStorage'
 import { LangType } from '../options/types'
+import generateCityObj from '../../../utilts/generateCityObj'
 
 
 const weatherActionCreators = {
@@ -28,13 +28,7 @@ const weatherActionCreators = {
             const data = await weatherAPI.getWeatherByGeo(coords, lang)
 
             if(data.cod === '200'){
-                const city = {
-                    city: data.city.name,
-                    country: data.city.country,
-                    weather: data.list,
-                    id: Date.now(),
-                    tempScale: 'C'
-                } as CityWeather
+                const city = generateCityObj(data)
 
                 //@ts-ignore
                 await dispatch(weatherActionCreators.fetchWeatherGeo(city))
@@ -53,17 +47,10 @@ const weatherActionCreators = {
             const data = await weatherAPI.getWeatherByCity(city, lang)
 
             if(data.cod === '200'){
-                const city = {
-                    city: data.city.name,
-                    country: data.city.country,
-                    weather: data.list,
-                    id: Date.now(),
-                    tempScale: 'C'
-                } as CityWeather
+                const city = generateCityObj(data)
 
                 //@ts-ignore
                 await dispatch(weatherActionCreators.addCityWeather(city))
-                localStorageService.addCity(city)
 
                 return city
             }
@@ -83,7 +70,6 @@ const weatherActionCreators = {
                 if(data.cod === '200'){
                     //@ts-ignore
                     await dispatch(weatherActionCreators.refetchCityWeather(city.id, data.list, data.city.name))
-                    localStorageService.updateWeatherData(city.id, data.list)
                 }
             })
         }catch(e){

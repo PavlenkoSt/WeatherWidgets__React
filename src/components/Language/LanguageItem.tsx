@@ -13,9 +13,7 @@ type LanguageItemPropsType = {
 const LanguageItem: FC<LanguageItemPropsType> = ({ value, setActiveSelect }) => {
 
     const { changeLang, refetchCitiesWeatherThunk } = useAction()
-
     const { citiesWeather } = useTypedSelector(state => state.weatherReducer)
-
 
     const selectLangHandler = () => {
         changeLang(value)
@@ -23,6 +21,7 @@ const LanguageItem: FC<LanguageItemPropsType> = ({ value, setActiveSelect }) => 
         setActiveSelect(false)
         refetchCitiesWeatherThunk(citiesWeather, value)
     }
+
 
     return (
         <div className={ s.item } onClick={ selectLangHandler } >

@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import useAction from '../../hooks/useAction'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import localStorageService from '../../localStorage'
 import dateLang from '../../utilts/dateLang'
 import s from './Widget.module.scss'
 
@@ -17,18 +16,13 @@ type TopWidgetPropsType = {
 
 const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, status, icon, date }) => {
 
-    const { removeCityWeather } = useAction()
-
-    const removeCityHandler = () => {
-        removeCityWeather(id)
-        localStorageService.removeCity(id)
-    }
-
     const { lang } = useTypedSelector(state => state.optionsReducer)
+    
+    const { removeCityWeather } = useAction()
 
     return (
         <>
-            <div className={ s.close } onClick={ removeCityHandler } >&#10006;</div>
+            <div className={ s.close } onClick={ () => removeCityWeather(id) } >&#10006;</div>
                 <div className={ s.top }>
                     <div className={ s.sity }>{ `${city}, ${country}` }</div>
                     <div className={ s.status }>
