@@ -21,7 +21,7 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
     const { rtl } = useTypedSelector(state => state.optionsReducer)
 
     return (
-        <div className={ rtl ? `${s.container} ${s.rtl}` : s.container } >
+        <div className={ rtl ? `${s.item} ${s.rtl}` : s.item } >
            <div className={ isColdTheme ? `${s.widget} ${s.cold}` : s.widget }>
                 <TopWidget
                     id={ widgetInfo.id }

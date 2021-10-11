@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.scss'
 import AddCity from './components/AddCity'
-import WidgetsList from './components/WidgetsList'
+import WidgetsList from './components/Widget/WidgetsList'
 import Language from './components/Language/Language'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'

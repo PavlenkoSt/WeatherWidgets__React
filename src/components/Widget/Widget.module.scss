@@ -1,4 +1,22 @@
-.container{
+.noWidgets{
+    color: rgb(99, 99, 99);
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.list{
+    display: flex;
+    padding: 0 15px;
+    flex-wrap: wrap;
+
+    &.rtl{
+        flex-direction: row-reverse;
+    }
+}
+
+.item{
     width: 33.33333%;
     padding: 10px;
 }
