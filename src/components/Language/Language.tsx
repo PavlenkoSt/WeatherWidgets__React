@@ -21,8 +21,15 @@ const Language = () => {
         setActiveSelect(prevStatus => !prevStatus)
     }
 
+    const closeDropdown = (e: any) => {
+        setActiveSelect(false)
+    }
+
     return (
-        <div className={ rtl ? `${s.container} ${s.rtl}` : s.container }>
+        <div 
+            className={ rtl ? `${s.container} ${s.rtl}` : s.container }
+            onMouseLeave={ closeDropdown }
+        >
             <div 
                 className={ activeSelect ? `${s.select} ${s.active}` : s.select } 
                 onClick={ activateSelect }

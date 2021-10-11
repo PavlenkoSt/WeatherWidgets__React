@@ -69,8 +69,6 @@ const weatherActionCreators = {
                 if(data.cod === '200'){
                     await dispatch(weatherActionCreators.refetchCityWeather(city.id, data.list, data.city.name))
                 }
-
-                throw new Error('Refetch city weather error ---- in refetchCitiesWeatherThunk')
             })
         }catch(e){
             console.log(e)
