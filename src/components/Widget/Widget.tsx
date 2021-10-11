@@ -20,6 +20,12 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
     
     const { rtl } = useTypedSelector(state => state.optionsReducer)
 
+    const weatherCharacters = [
+        { name: 'wind', val: currentWeather.wind.speed, scale: 'm/s' },
+        { name: 'humidity', val: currentWeather.main.humidity, scale: '%' },
+        { name: 'pressure', val: currentWeather.main.pressure, scale: 'Pa' }
+    ]
+
     return (
         <div className={ rtl ? `${s.item} ${s.rtl}` : s.item } >
            <div className={ isColdTheme ? `${s.widget} ${s.cold}` : s.widget }>
@@ -41,10 +47,8 @@ const Widget: FC<WidgetPropsType> = ({ widgetInfo }) => {
                     tempScale={ widgetInfo.tempScale }
                     temp={ currentWeather.main.temp }
                     feelsLike={ currentWeather.main.feels_like }
-                    wind={ currentWeather.wind.speed }
-                    humidity={ currentWeather.main.humidity }
-                    pressure={ currentWeather.main.pressure }
                     isColdTheme={ isColdTheme }
+                    weatherCharacters={ weatherCharacters }
                 />
            </div>
         </div>

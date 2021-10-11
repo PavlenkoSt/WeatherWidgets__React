@@ -1,10 +1,17 @@
 import React, { FC } from 'react'
-import useAction from '../../hooks/useAction'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import celsiusToFarengeit from '../../utilts/celsiusToFarengeit'
 import terms from '../../utilts/terms'
+import useTemp from '../../hooks/useTemp'
 import s from './Widget.module.scss'
+import WidgetOption from './WidgetOption'
+import WidgetScale from './WidgetScale'
 
+
+export type WeatherCharacterType = {
+    val: number
+    scale: string
+    name: string
+}
 
 type BottomWidgetPropsType = {
     tempScale: 'F' | 'C'
@@ -12,39 +19,47 @@ type BottomWidgetPropsType = {
     isColdTheme: boolean
     feelsLike: number
     id: number
-    wind: number
-    humidity: number
-    pressure: number
+    weatherCharacters: WeatherCharacterType[]
 }
 
-const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme, feelsLike, id, wind, humidity, pressure }) => {
+
+const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme, feelsLike, id, weatherCharacters }) => {
     
     const { lang } = useTypedSelector(state => state.optionsReducer)
-    const { changeScaleWeather } = useAction()
+    const { isCelsiusScale, tempCalcValue, feelsLikeCalc } = useTemp(tempScale, temp, feelsLike)
 
-    const isCelsiusScale = tempScale === 'C'
-    
-    const tempCalc = isCelsiusScale ? Math.round(temp) : Math.round(celsiusToFarengeit(temp))
-    const feelsLikeCalc = isCelsiusScale ? Math.round(feelsLike) : Math.round(celsiusToFarengeit(feelsLike))
+    const renderOptions = weatherCharacters.map(character => <WidgetOption
+        isColdTheme={ isColdTheme }
+        character={ character }
+        key={ character.name }
+    />) 
 
     return (
         <div className={ s.bottom }>
             <div>
                 <div className={ s.temp }>
-                    <div className={ s.tempVal }>{ tempCalc }</div>
+                    <div className={ s.tempVal }>
+                        { tempCalcValue }
+                    </div>
                     <div className={ s.tempTumbler }>
 
-                        <div 
-                            className={ isCelsiusScale ? `${s.tempItem} ${s.active}` : s.tempItem }
-                            onClick={ () => !isCelsiusScale && changeScaleWeather(id, 'C') }
-                        >&deg;C</div> 
+                        <WidgetScale
+                            active={ isCelsiusScale }
+                            id={ id }
+                            scale='C'
+                        >
+                            &deg;C
+                        </WidgetScale>
 
                         | 
 
-                        <div
-                            className={ !isCelsiusScale ? `${s.tempItem} ${s.active}` : s.tempItem }
-                            onClick={ () => isCelsiusScale && changeScaleWeather(id, 'F') }
-                        >&deg;F</div>
+                        <WidgetScale
+                            active={ !isCelsiusScale }
+                            id={ id }
+                            scale='F'
+                        >
+                            &deg;F
+                        </WidgetScale>
 
                     </div>
                 </div>
@@ -55,25 +70,7 @@ const BottomWidget: FC<BottomWidgetPropsType> = ({ temp, tempScale, isColdTheme,
                 </div>
             </div>
             <div>
-
-                <div className={ s.option }>
-                    <span>{ terms.wind[lang] }</span>
-                    :
-                    <span className={ isColdTheme ? `${s.val} ${s.cold}` : s.val} >{ wind } m/s</span>
-                </div>
-
-                <div className={ s.option }>
-                    <span>{ terms.humidity[lang] }</span>
-                    :
-                    <span className={ isColdTheme ? `${s.val} ${s.cold}` : s.val} >{ humidity } %</span>
-                </div>
-
-                <div className={ s.option }>
-                    <span>{ terms.pressure[lang] }</span>
-                    :
-                    <span className={ isColdTheme ? `${s.val} ${s.cold}` : s.val} >{ pressure } Pa</span>
-                </div>
-                
+                { renderOptions }
             </div>
         </div>
     )

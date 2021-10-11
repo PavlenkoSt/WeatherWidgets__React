@@ -15,6 +15,7 @@ const AppContainer = () => {
     const { citiesWeather } = useTypedSelector(state => state.weatherReducer)
 
     const { setCitiesWeather, refetchCitiesWeatherThunk, changeLang, fetchWeatherGeoThunk } = useAction()
+
     const { error, latitude, longitude } = usePosition()
 
     useEffect(() => {
@@ -47,7 +48,7 @@ const AppContainer = () => {
     }, [latitude, longitude])
 
     useEffect(() => {
-        // synchronization of business data with local storage
+        // synchronization of weather data with local storage
 
         localStorageService.setCities(citiesWeather)
     }, [citiesWeather])

@@ -14,7 +14,7 @@ type TopWidgetPropsType = {
     icon: string
 }
 
-const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, status, icon, date }) => {
+const TopWidget: FC<TopWidgetPropsType> = React.memo(({ city, country, id, status, icon, date }) => {
 
     const { lang } = useTypedSelector(state => state.optionsReducer)
     
@@ -37,6 +37,6 @@ const TopWidget: FC<TopWidgetPropsType> = ({ city, country, id, status, icon, da
             <div className={ s.date }>{ dateLang(date, lang)  }</div>   
         </>
     )
-}
+})
 
 export default TopWidget

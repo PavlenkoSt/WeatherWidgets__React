@@ -10,6 +10,7 @@ import terms from '../utilts/terms'
 
 //@ts-ignore
 import scriptLoader from 'react-async-script-loader'
+import generateToastOptions from '../utilts/generateToastOptions'
 
 
 type ScriptLoaderPropsType = {
@@ -26,13 +27,7 @@ const AddCity: FC<ScriptLoaderPropsType> = ({ isScriptLoaded, isScriptLoadSuccee
 
     const { addCityWeatherThunk } = useAction()
 
-    const toastOptions = {
-        hideProgressBar: true,
-        autoClose: 2000,
-        position: 'bottom-center',
-        closeButton: false,
-        className: rtl ? s.rtl : ''
-    }
+    const toastOptions = generateToastOptions(rtl, s.rtl) 
 
     const addCityHandler = async (value?: string) => {
         if(inputCity){
@@ -45,10 +40,10 @@ const AddCity: FC<ScriptLoaderPropsType> = ({ isScriptLoaded, isScriptLoadSuccee
                 return
             }
 
-            toast(terms.cityNotFound[lang], toastOptions as {})
+            toast(terms.cityNotFound[lang], toastOptions)
             setIsLoading(false)
         }else{
-            toast(terms.emptyField[lang], toastOptions as {})
+            toast(terms.emptyField[lang], toastOptions)
         }
     }
 
@@ -74,20 +69,14 @@ const AddCity: FC<ScriptLoaderPropsType> = ({ isScriptLoaded, isScriptLoadSuccee
                     ({ getInputProps, suggestions, getSuggestionItemProps }) => (
                         <div className={ s.inputContainer } >
                             <input
-                                { ...getInputProps({
-                                    className: s.input,
-                                }) }
+                                { ...getInputProps({ className: s.input }) }
                                 dir={ rtl ? 'rtl' : 'ltl' }
-                                
                             />
                             <div className={ s.dropdown }>
                                 { suggestions.map(suggestion => {
-                                    const className = suggestion.active
-                                        ? `${s.suggestion} ${s.active}`
-                                        : s.suggestion
                                     return (
                                         <div
-                                            {...getSuggestionItemProps(suggestion, { className })}
+                                            { ...getSuggestionItemProps(suggestion, { className: s.suggestion }) }
                                             key={ suggestion.placeId }
                                         >
                                             <span>{ cityFormat(suggestion.description) }</span>
