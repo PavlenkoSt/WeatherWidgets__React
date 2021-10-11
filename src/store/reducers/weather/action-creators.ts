@@ -1,4 +1,4 @@
-import { CityWeather } from './../../../models/weather'
+import { CityWeather, CoordsType } from './../../../models/weather'
 import { AppDispatch } from './../../index'
 import { WeatherActionTypes } from "./types"
 import weatherAPI from '../../../API/weatherAPI'
@@ -9,28 +9,27 @@ import generateCityObj from '../../../utilts/generateCityObj'
 const weatherActionCreators = {
     // ac
 
-    setCitiesWeather: (citiesWeather: CityWeather[]) => ({ type: WeatherActionTypes.SET_CITIES_WEATHER, payload: citiesWeather }),
+    setCitiesWeather: (citiesWeather: CityWeather[]) => ({ type: WeatherActionTypes.SET_CITIES_WEATHER, payload: citiesWeather }) as const,
     
-    addCityWeather: (cityWeather: CityWeather) => ({ type: WeatherActionTypes.ADD_CITY_WEATHER, payload: cityWeather }),
+    addCityWeather: (cityWeather: CityWeather) => ({ type: WeatherActionTypes.ADD_CITY_WEATHER, payload: cityWeather }) as const,
     
-    removeCityWeather: (id: number) => ({ type: WeatherActionTypes.REMOVE_CITY_WEATHER, payload: id }),
+    removeCityWeather: (id: number) => ({ type: WeatherActionTypes.REMOVE_CITY_WEATHER, payload: id }) as const,
     
-    changeScaleWeather: (id: number, scale: 'C' | 'F') => ({ type: WeatherActionTypes.CHANGE_SCALE_WEATHER, payload: { id, scale } }),
+    changeScaleWeather: (id: number, scale: 'C' | 'F') => ({ type: WeatherActionTypes.CHANGE_SCALE_WEATHER, payload: { id, scale } }) as const,
     
-    refetchCityWeather: (id: number, weather: any[], name: string) => ({ type: WeatherActionTypes.REFETCH_WEATHER, payload: { id, weather, name } }),
+    refetchCityWeather: (id: number, weather: any[], name: string) => ({ type: WeatherActionTypes.REFETCH_WEATHER, payload: { id, weather, name } }) as const,
     
-    fetchWeatherGeo: (cityWeaher: CityWeather) => ({ type: WeatherActionTypes.FETCH_WEATHER_GEO, payload: cityWeaher }),
+    fetchWeatherGeo: (cityWeaher: CityWeather) => ({ type: WeatherActionTypes.FETCH_WEATHER_GEO, payload: cityWeaher }) as const,
 
     // thunks
     
-    fetchWeatherGeoThunk: (coords: any, lang: LangType) => async (dispatch: AppDispatch) => {
+    fetchWeatherGeoThunk: (coords: CoordsType, lang: LangType) => async (dispatch: AppDispatch) => {
         try{
             const data = await weatherAPI.getWeatherByGeo(coords, lang)
 
             if(data.cod === '200'){
                 const city = generateCityObj(data)
 
-                //@ts-ignore
                 await dispatch(weatherActionCreators.fetchWeatherGeo(city))
 
                 return city
@@ -39,6 +38,7 @@ const weatherActionCreators = {
             return null
         }catch(e){
             console.log(e)
+            return null
         }
     },
 
@@ -49,7 +49,6 @@ const weatherActionCreators = {
             if(data.cod === '200'){
                 const city = generateCityObj(data)
 
-                //@ts-ignore
                 await dispatch(weatherActionCreators.addCityWeather(city))
 
                 return city
@@ -68,9 +67,10 @@ const weatherActionCreators = {
                 const data = await weatherAPI.getWeatherByCity(city.city, lang)
 
                 if(data.cod === '200'){
-                    //@ts-ignore
                     await dispatch(weatherActionCreators.refetchCityWeather(city.id, data.list, data.city.name))
                 }
+
+                throw new Error('Refetch city weather error ---- in refetchCitiesWeatherThunk')
             })
         }catch(e){
             console.log(e)

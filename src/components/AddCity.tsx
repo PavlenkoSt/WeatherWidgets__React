@@ -12,8 +12,12 @@ import terms from '../utilts/terms'
 import scriptLoader from 'react-async-script-loader'
 
 
+type ScriptLoaderPropsType = {
+    isScriptLoaded: boolean
+    isScriptLoadSucceed: boolean
+}
 
-const AddCity: FC<any> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
+const AddCity: FC<ScriptLoaderPropsType> = ({ isScriptLoaded, isScriptLoadSucceed }) => {
 
     const [ inputCity, setInputCity ] = useState('')
     const [ isLoading, setIsLoading ] = useState(false)

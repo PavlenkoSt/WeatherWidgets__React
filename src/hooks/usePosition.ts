@@ -7,7 +7,7 @@ export const usePosition = () => {
     })
     const [error, setError] = useState('')
 
-    const onChange = (position: any) => {
+    const onChange: PositionCallback = (position) => {
         
         setPosition({ 
             latitude: position.coords.latitude, 
@@ -15,7 +15,7 @@ export const usePosition = () => {
         })
     }
 
-    const onError = (error: any) => setError(error.message)
+    const onError: PositionErrorCallback = (error) => setError(error.message)
 
     useEffect(() => {
         const geo = navigator.geolocation

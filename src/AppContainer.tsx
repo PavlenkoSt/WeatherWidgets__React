@@ -6,6 +6,7 @@ import { usePosition } from './hooks/usePosition'
 import localStorageService from './localStorage'
 import useAction from './hooks/useAction'
 
+
 const AppContainer = () => {
 
     const [ isGotGeoCity, setIsGotGeoCity ] = useState(false)
@@ -39,7 +40,7 @@ const AppContainer = () => {
         if(!isGotGeoCity && !error && latitude && longitude){
             const city = fetchWeatherGeoThunk({ latitude, longitude }, lang)
             //@ts-ignore
-            if(city){
+            if(city){ 
                 setIsGotGeoCity(true)
             }
         }
